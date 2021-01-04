@@ -37,7 +37,7 @@
 			this.menuStrip = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.logoPictureBox = new System.Windows.Forms.PictureBox();
 			this.minimizeButton = new System.Windows.Forms.Button();
 			this.maximizeButton = new System.Windows.Forms.Button();
 			this.closeButton = new System.Windows.Forms.Button();
@@ -47,8 +47,10 @@
 			this.wpmLabel = new System.Windows.Forms.Label();
 			this.timeLabel = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.charsPerMinuteLabel = new System.Windows.Forms.Label();
+			this.bestCharsPerMinuteLabel = new System.Windows.Forms.Label();
 			this.menuStrip.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -71,7 +73,7 @@
 			this.textBox.Name = "textBox";
 			this.textBox.ReadOnly = true;
 			this.textBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-			this.textBox.Size = new System.Drawing.Size(652, 218);
+			this.textBox.Size = new System.Drawing.Size(854, 179);
 			this.textBox.TabIndex = 1;
 			this.textBox.TabStop = false;
 			this.textBox.Text = "";
@@ -85,12 +87,12 @@
 			this.inputTextBox.Enabled = false;
 			this.inputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.inputTextBox.ForeColor = System.Drawing.Color.Gainsboro;
-			this.inputTextBox.Location = new System.Drawing.Point(16, 346);
+			this.inputTextBox.Location = new System.Drawing.Point(16, 307);
 			this.inputTextBox.Margin = new System.Windows.Forms.Padding(6);
 			this.inputTextBox.Multiline = false;
 			this.inputTextBox.Name = "inputTextBox";
 			this.inputTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-			this.inputTextBox.Size = new System.Drawing.Size(651, 38);
+			this.inputTextBox.Size = new System.Drawing.Size(853, 38);
 			this.inputTextBox.TabIndex = 2;
 			this.inputTextBox.Text = "";
 			this.inputTextBox.TextChanged += new System.EventHandler(this.inputTextBox_TextChanged);
@@ -130,20 +132,20 @@
 			this.openToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.openToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 28);
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(128, 28);
 			this.openToolStripMenuItem.Text = "Open";
 			this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
 			// 
-			// pictureBox1
+			// logoPictureBox
 			// 
-			this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-			this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.pictureBox1.Location = new System.Drawing.Point(8, 8);
-			this.pictureBox1.Name = "pictureBox1";
-			this.pictureBox1.Size = new System.Drawing.Size(32, 32);
-			this.pictureBox1.TabIndex = 15;
-			this.pictureBox1.TabStop = false;
-			this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+			this.logoPictureBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("logoPictureBox.BackgroundImage")));
+			this.logoPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.logoPictureBox.Location = new System.Drawing.Point(8, 8);
+			this.logoPictureBox.Name = "logoPictureBox";
+			this.logoPictureBox.Size = new System.Drawing.Size(32, 32);
+			this.logoPictureBox.TabIndex = 15;
+			this.logoPictureBox.TabStop = false;
+			this.logoPictureBox.Click += new System.EventHandler(this.pictureBox1_Click);
 			// 
 			// minimizeButton
 			// 
@@ -156,7 +158,7 @@
 			this.minimizeButton.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.minimizeButton.ForeColor = System.Drawing.Color.White;
 			this.minimizeButton.Image = ((System.Drawing.Image)(resources.GetObject("minimizeButton.Image")));
-			this.minimizeButton.Location = new System.Drawing.Point(556, 8);
+			this.minimizeButton.Location = new System.Drawing.Point(758, 8);
 			this.minimizeButton.Name = "minimizeButton";
 			this.minimizeButton.Size = new System.Drawing.Size(40, 32);
 			this.minimizeButton.TabIndex = 3;
@@ -175,7 +177,7 @@
 			this.maximizeButton.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.maximizeButton.ForeColor = System.Drawing.Color.White;
 			this.maximizeButton.Image = ((System.Drawing.Image)(resources.GetObject("maximizeButton.Image")));
-			this.maximizeButton.Location = new System.Drawing.Point(596, 8);
+			this.maximizeButton.Location = new System.Drawing.Point(798, 8);
 			this.maximizeButton.Name = "maximizeButton";
 			this.maximizeButton.Size = new System.Drawing.Size(40, 32);
 			this.maximizeButton.TabIndex = 4;
@@ -194,7 +196,7 @@
 			this.closeButton.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.closeButton.ForeColor = System.Drawing.Color.White;
 			this.closeButton.Image = ((System.Drawing.Image)(resources.GetObject("closeButton.Image")));
-			this.closeButton.Location = new System.Drawing.Point(636, 8);
+			this.closeButton.Location = new System.Drawing.Point(838, 8);
 			this.closeButton.Name = "closeButton";
 			this.closeButton.Size = new System.Drawing.Size(40, 32);
 			this.closeButton.TabIndex = 5;
@@ -270,6 +272,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(64)))));
+			this.panel1.Controls.Add(this.charsPerMinuteLabel);
+			this.panel1.Controls.Add(this.bestCharsPerMinuteLabel);
 			this.panel1.Controls.Add(this.textBox);
 			this.panel1.Controls.Add(this.startStopButton);
 			this.panel1.Controls.Add(this.wpmLabel);
@@ -278,15 +282,37 @@
 			this.panel1.Controls.Add(this.wordCountLabel);
 			this.panel1.Location = new System.Drawing.Point(8, 40);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(668, 352);
+			this.panel1.Size = new System.Drawing.Size(870, 313);
 			this.panel1.TabIndex = 16;
+			// 
+			// charsPerMinuteLabel
+			// 
+			this.charsPerMinuteLabel.AutoSize = true;
+			this.charsPerMinuteLabel.ForeColor = System.Drawing.Color.Gainsboro;
+			this.charsPerMinuteLabel.Location = new System.Drawing.Point(563, 8);
+			this.charsPerMinuteLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.charsPerMinuteLabel.Name = "charsPerMinuteLabel";
+			this.charsPerMinuteLabel.Size = new System.Drawing.Size(251, 26);
+			this.charsPerMinuteLabel.TabIndex = 10;
+			this.charsPerMinuteLabel.Text = "Characters per minute: 0";
+			// 
+			// bestCharsPerMinuteLabel
+			// 
+			this.bestCharsPerMinuteLabel.AutoSize = true;
+			this.bestCharsPerMinuteLabel.ForeColor = System.Drawing.Color.Gainsboro;
+			this.bestCharsPerMinuteLabel.Location = new System.Drawing.Point(563, 40);
+			this.bestCharsPerMinuteLabel.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+			this.bestCharsPerMinuteLabel.Name = "bestCharsPerMinuteLabel";
+			this.bestCharsPerMinuteLabel.Size = new System.Drawing.Size(296, 26);
+			this.bestCharsPerMinuteLabel.TabIndex = 11;
+			this.bestCharsPerMinuteLabel.Text = "Best characters per minute: 0";
 			// 
 			// MainForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(74)))));
-			this.ClientSize = new System.Drawing.Size(684, 400);
-			this.Controls.Add(this.pictureBox1);
+			this.ClientSize = new System.Drawing.Size(886, 361);
+			this.Controls.Add(this.logoPictureBox);
 			this.Controls.Add(this.minimizeButton);
 			this.Controls.Add(this.maximizeButton);
 			this.Controls.Add(this.closeButton);
@@ -296,13 +322,13 @@
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
 			this.MainMenuStrip = this.menuStrip;
 			this.Margin = new System.Windows.Forms.Padding(6);
-			this.MinimumSize = new System.Drawing.Size(700, 400);
+			this.MinimumSize = new System.Drawing.Size(900, 400);
 			this.Name = "MainForm";
 			this.Padding = new System.Windows.Forms.Padding(8);
 			this.Text = "TypeFast!";
 			this.menuStrip.ResumeLayout(false);
 			this.menuStrip.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
 			this.ResumeLayout(false);
@@ -325,8 +351,10 @@
 		private System.Windows.Forms.MenuStrip menuStrip;
 		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.PictureBox logoPictureBox;
 		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Label charsPerMinuteLabel;
+		private System.Windows.Forms.Label bestCharsPerMinuteLabel;
 	}
 }
 

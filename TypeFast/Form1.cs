@@ -17,20 +17,26 @@ namespace TypeFast
 		bool maximized;
 		public const int BorderWidth = 16;
 		int wordIndex, selectionStart;
-		string[] words = new string[0];
-		string[] texts;
+		Text[] texts;
+		Text currentText;
 		int currentTextIndex = -1;
-		int secondsPassed, wpm, bestWpm = int.MinValue;
+		int secondsPassed;
+		int wpm;
+		int cpm;
+		int bestWpm = int.MinValue;
+		int bestCpm = int.MinValue;
+		int charsWritten;
 		readonly Color textColor, rightColor, wrongColor;
 		bool timerStarted = false;
 		bool running = false;
 		void LoadTexts(string filename)
 		{
-			string[] lines = File.ReadAllLines(filename);
-			texts = new string[lines.Length];
-			for (int i = 0; i < lines.Length; ++i)
+			string[] textsStr = File.ReadAllLines(filename);
+			texts = new Text[textsStr.Length];
+
+			for (int i = 0; i < texts.Length; ++i)
 			{
-				texts[i] = lines[i];
+				texts[i] = new Text(textsStr[i]);
 			}
 		}
 		public MainForm()
@@ -43,7 +49,7 @@ namespace TypeFast
 			wrongColor = Color.FromArgb(255, 32, 32);
 			LoadTexts("texts.txt");
 		}
-		string GetNextText()
+		Text GetNextText()
 		{
 			if (texts.Length == 1)
 			{
@@ -61,7 +67,7 @@ namespace TypeFast
 
 			return texts[currentTextIndex];
 		}
-		void UpdateButton(bool start)
+		void UpdateStartStopButtonText(bool start)
 		{
 			startStopButton.Text = start ? "Start" : "Stop";
 		}
@@ -81,8 +87,8 @@ namespace TypeFast
 			inputTextBox.Clear();
 			inputTextBox.Enabled = false;
 			wordIndex = 0;
-			UpdateButton(true);
-			words = new string[0];
+			charsWritten = 0;
+			UpdateStartStopButtonText(true);
 			running = false;
 			openToolStripMenuItem.Enabled = true;
 			startStopButton.Focus();
@@ -99,20 +105,16 @@ namespace TypeFast
 			}
 			else
 			{
-				if (wordIndex != words.Length)
-				{
-					return;
-				}
+				//if (wordIndex != currentText.words.Length)
+				//{
+				//	return;
+				//}
 
 				inputTextBox.Enabled = true;
-				string text = GetNextText();
-				textBox.Text = text;
-				words = text.Split(' ');
-				for (int i = 0; i < words.Length - 1; ++i)
-				{
-					words[i] += ' ';
-				}
-				UpdateButton(false);
+				currentText = GetNextText();
+				textBox.Text = currentText.text;
+				
+				UpdateStartStopButtonText(false);
 				_ = inputTextBox.Focus();
 				secondsPassed = 0;
 				UpdateTimeLabel();
@@ -136,7 +138,9 @@ namespace TypeFast
 		void Finish()
 		{
 			bestWpm = Math.Max(bestWpm, wpm);
+			bestCpm = Math.Max(bestCpm, cpm);
 			bestWpmLabel.Text = $"Best words per minute: {bestWpm}";
+			bestCharsPerMinuteLabel.Text = $"Best characters per minute: {bestCpm}";
 			secondsPassed = 0;
 			StopGame();
 		}
@@ -147,23 +151,32 @@ namespace TypeFast
 				timerStarted = true;
 				timer1.Start();
 			}
-			string text = words[wordIndex];
+			string word = currentText.words[wordIndex];
 			string input = inputTextBox.Text;
 
 			Win32.EnableRepaint(textBox.Handle, false);
 
-			if (input == text)
+			if (input == word)
 			{
+				// The word is written
 				++wordIndex;
 				inputTextBox.Clear();
 				textBox.SelectionStart = selectionStart;
-				textBox.SelectionLength = text.Length;
+				textBox.SelectionLength = word.Length;
 				textBox.SelectionColor = rightColor;
-				selectionStart += text.Length;
-				wpm = (int)(wordIndex / (float)Math.Max(secondsPassed, 1) * 60.0f);
+				selectionStart += word.Length;
+
+				float minutesPassed = Math.Max(secondsPassed, 1) / 60.0f;
+
+				wpm = (int)(wordIndex / minutesPassed);
+
+				charsWritten += word.Length;
+				cpm = (int)(charsWritten / minutesPassed);
+				
 				wpmLabel.Text = $"Words per minute: {wpm}";
+				charsPerMinuteLabel.Text = $"Characters per minute: {cpm}";
 				wordCountLabel.Text = $"Words: {wordIndex}";
-				if (wordIndex == words.Length)
+				if (wordIndex == currentText.words.Length)
 				{
 					Finish();
 				}
@@ -173,11 +186,11 @@ namespace TypeFast
 				int diffStart = -1;
 				for (int i = 0; ; ++i)
 				{
-					if (i >= text.Length || i >= input.Length)
+					if (i >= word.Length || i >= input.Length)
 					{
 						break;
 					}
-					if (text[i] != input[i])
+					if (word[i] != input[i])
 					{
 						diffStart = i;
 						break;
@@ -234,6 +247,7 @@ namespace TypeFast
 		}
 
 		protected static int MakeLong(short lowPart, short highPart) => (int)(((ushort)lowPart) | (uint)(highPart << 16));
+
 		private void pictureBox1_Click(object sender, EventArgs e)
 		{
 			Point p = Cursor.Position;
@@ -377,5 +391,19 @@ namespace TypeFast
 		//		return p;
 		//	}
 		//}
+	}
+	public class Text
+	{
+		public string text;
+		public string[] words;
+		public Text(string text)
+		{
+			this.text = text;
+
+			words = text.Split(' ');
+
+			for (int j = 0; j < words.Length - 1; ++j)
+				words[j] += ' ';
+		}
 	}
 }
